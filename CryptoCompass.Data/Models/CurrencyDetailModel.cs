@@ -8,16 +8,16 @@ namespace CryptoCompass.Data.Models
 {
     public class CurrencyDetailModel
     {
-        public string Id { get; set; }
-        public string Rank { get; set; }
-        public string Symbol { get; set; }
-        public string Name { get; set; }
-        public string Supply { get; set; }
-        public string MaxSupply { get; set; }
-        public string MarketCapUsd { get; set; }
-        public string VolumeUsd24Hr { get; set; }
-        public string PriceUsd { get; set; }
-        public string ChangePercent24Hr { get; set; }
-        public string Vwap24Hr { get; set; }
+        public string id { get; set; }
+        public string rank { get; set; }
+        public string symbol { get; set; }
+        public string name { get; set; }
+        public string supply { get; set; }
+        public string maxSupply { get; set; }
+        public string marketCapUsd { get; set; }
+        public string volumeUsd24Hr { get; set; }
+        public string priceUsd { get; set; }
+        public string changePercent24Hr { get; set; }
+        public string vwap24Hr { get; set; }
     }
 }

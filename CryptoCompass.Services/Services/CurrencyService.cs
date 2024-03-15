@@ -9,24 +9,31 @@ namespace CryptoCompass.Services.Services
 {
     public class CurrencyService : ICurrencyService
     {
+        private CryptoCompassClient cryptoCompassClient = new CryptoCompassClient();
+
         public async Task<CurrencyDetailDTO> GetCurrencyDetailsAsync(string currencyId)
         {
-            // TODO: call API client and return base model
+            // 1 step: call API client and return base model
             // 2 step: map base model(result) to DTO object with automapper
             // 3 step: return DTO model
-            CryptoCompassClient cryptoCompassClient = new CryptoCompassClient();
             var currencyDetailsAsync = await cryptoCompassClient.GetDetailByIdAsync(currencyId);
 
             var config = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
             var mapper = config.CreateMapper();
             CurrencyDetailDTO currencyDetailDTO = mapper.Map<CurrencyDetailDTO>(currencyDetailsAsync);
 
-            throw new NotImplementedException();
+            return currencyDetailDTO;
         }
 
-        public Task<CurrencyPricesDTO> GetCurrencyPricesAsync()
+        public async Task<CurrencyPricesDTO> GetCurrencyPricesAsync()
         {
-            throw new NotImplementedException();
+            var currencyPricesModel = await cryptoCompassClient.GetEnumerationOfDataAsync();
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
+            var mapper = config.CreateMapper();
+            CurrencyPricesDTO currencyPricesDTO = mapper.Map<CurrencyPricesDTO>(currencyPricesModel);
+
+            return currencyPricesDTO;
         }
     }
 }

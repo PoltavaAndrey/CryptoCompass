@@ -4,7 +4,7 @@ namespace CryptoCompass.DTO.Models
 {
     public class CurrencyPricesDTO
     {
-        public IEnumerable<CurrencyDetailDTO> CurrencyDetails { get; set; }
-        public long Timestamp { get; set; }
+        public IEnumerable<CurrencyDetailDTO> data { get; set; }
+        public long timestamp { get; set; }
     }
 }

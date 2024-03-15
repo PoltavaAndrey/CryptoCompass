@@ -20,12 +20,12 @@ namespace CryptoCompass.API.Contex
             _requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.coincap.io/v2/assets");
         }
 
-        public async Task<CurrencyPricesModel> GetListOfDataAsync()
+        public async Task<CurrencyPricesModel> GetEnumerationOfDataAsync()
         {
             return await GetValueAsync(_requestMessage);
         }
 
-        public async Task<CurrencyDetailModel> GetDataByIdAsync(string id)
+        public async Task<CurrencyDetailModel> GetDetailByIdAsync(string id)
         {
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.coincap.io/v2/assets/" + id);
             var currentPriceModel = await GetValueAsync(_requestMessage);

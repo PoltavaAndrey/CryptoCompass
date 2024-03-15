@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\CryptoCompass\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,15 +44,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptoMappingProfile.cs" />
     <Compile Include="Interfaces\ICurrencyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CurrencyService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CryptoCompass.API\CryptoCompass.API.csproj">
+      <Project>{0c2557c9-3bff-4ba1-8a50-07a21c6ba47c}</Project>
+      <Name>CryptoCompass.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CryptoCompass.Data\CryptoCompass.Data.csproj">
+      <Project>{9bff5f7a-e87d-468b-ac13-12ecb48aea6a}</Project>
+      <Name>CryptoCompass.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CryptoCompass.DTO\CryptoCompass.DTO.csproj">
       <Project>{90a8ea0f-b1b1-487d-a27f-28e5af751252}</Project>
       <Name>CryptoCompass.DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

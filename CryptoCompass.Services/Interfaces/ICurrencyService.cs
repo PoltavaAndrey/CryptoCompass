@@ -6,6 +6,6 @@ namespace CryptoCompass.Services.Interfaces
     public interface ICurrencyService
     {
         Task<CurrencyPricesDTO> GetCurrencyPricesAsync();
-        Task<CurrencyDetailDTO> GetCurrencyDetaisAsync(string currencyId);
+        Task<CurrencyDetailDTO> GetCurrencyDetailsAsync(string currencyId);
     }
 }

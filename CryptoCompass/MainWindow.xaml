@@ -5,19 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoCompass"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="657,384,0,0" VerticalAlignment="Top" Height="40" Width="133" Click="Button_Click"/>
-        <ListBox ItemsSource="{Binding}" Margin="10,10,10,55">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding name}" />
-                        <TextBlock Text="{Binding priceUsd}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
+        
     </Grid>
 </Window>

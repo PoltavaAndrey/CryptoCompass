@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CurrencyDetailModel.cs" />
+    <Compile Include="Models\CurrencyHistoryModel.cs" />
+    <Compile Include="Models\CurrencyHistoryPricesModel.cs" />
     <Compile Include="Models\CurrencyPricesModel.cs" />
+    <Compile Include="Models\jsonClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

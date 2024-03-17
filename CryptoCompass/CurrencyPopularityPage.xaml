@@ -10,7 +10,7 @@
       ShowsNavigationUI="False">
 
     <Grid>
-        <ListBox ItemsSource="{Binding}" Margin="0,0,0,0" MouseDoubleClick="ListBox_MouseDoubleClick" Name="CurrencyPopularityList">
+        <ListBox ItemsSource="{Binding}" Margin="0,54,0,0" MouseDoubleClick="ListBox_MouseDoubleClick" Name="CurrencyPopularityList">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -21,16 +21,24 @@
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding rank}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{Binding name}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" Text="{Binding symbol}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="3" Text="{Binding priceUsd}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Text="{Binding rank}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Left" Background="#FFFDF45F"/>
+                        <TextBlock Grid.Column="1" Text="{Binding name}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Left" Background="#FFAFFA51"/>
+                        <TextBlock Grid.Column="2" Text="{Binding symbol}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Left" Background="#FFFF7C7C"/>
+                        <TextBlock Grid.Column="3" Text="{Binding supply}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Left" Background="#FF65FCC0"/>
+                        <TextBlock Grid.Column="4" Text="{Binding priceUsd}" Margin="0,0,5,0" FontSize="24" HorizontalAlignment="Left" Background="#FFF269FF"/>
                     </Grid>
-                    
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <TextBox HorizontalAlignment="Left" Margin="50,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" LostFocus="FindByName_LostFocus"
+                 Name="FindByNameTextBox"/>
+        <TextBox HorizontalAlignment="Left" Margin="250,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" LostFocus="FindBySymbol_LostFocus"
+                 Name="FindBySymbolTextBox"/>
+        <Label Content="Find by name" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Background="#FFFDFDFD"/>
+        <Label Content="Find by symbol" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Top" Background="#FFFDFDFD"/>
     </Grid>
 </Page>

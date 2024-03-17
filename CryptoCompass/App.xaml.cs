@@ -8,10 +8,14 @@ using System.Windows;
 
 namespace CryptoCompass
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        public string CurrencyId { get; set; }
+        public string CurrencyName { get; set; }
+        public string CurrencySymbol { get; set; }
+        public string CurrencySupply { get; set; }
+        public string CurrencyMaxSupply { get; set; }
+        public string CurrencyMarketCapUsd { get; set; }
+        public string CurrencyPriceUsd { get; set; }
     }
 }

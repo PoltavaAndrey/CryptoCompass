@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CryptoCompass.Data.Models
+﻿namespace CryptoCompass.Data.Models
 {
     public class CurrencyDetailModel
     {

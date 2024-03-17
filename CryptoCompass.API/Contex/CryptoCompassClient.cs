@@ -3,52 +3,46 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using CryptoCompass.Data.Models;
-using System.Linq;
 
 namespace CryptoCompass.API.Contex
 {
     public class CryptoCompassClient : IDisposable
     {
         private readonly HttpClient _client;
-        private readonly HttpRequestMessage _requestMessage;
+        private readonly string requestUri = "https://api.coincap.io/v2/assets",
+            requestUriHistory1 = "https://api.coincap.io/v2/assets/",
+            requestUriHistory2 = "/history?interval=d1";
+        private HttpRequestMessage _requestMessage;
 
-        private CurrencyPricesModel _rootobject;
+        private CurrencyPricesModel currencyPricesModel;
 
         public CryptoCompassClient()
         {
             _client = new HttpClient();
-            _requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.coincap.io/v2/assets");
         }
 
         public async Task<CurrencyPricesModel> GetEnumerationOfDataAsync()
         {
-            return await GetValueAsync(_requestMessage);
+            _requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            var response = await _client.SendAsync(_requestMessage);
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+            currencyPricesModel = JsonSerializer.Deserialize<CurrencyPricesModel>(json);
+
+            return currencyPricesModel;
         }
 
-        public async Task<CurrencyDetailModel> GetDetailByIdAsync(string id)
+        public async Task<CurrencyHistoryPricesModel> GetDetailByIdAsync(string id)
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.coincap.io/v2/assets/" + id);
-            var currentPriceModel = await GetValueAsync(_requestMessage);
+            _requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUriHistory1 + id + requestUriHistory2);
+            var response = await _client.SendAsync(_requestMessage);
+            response.EnsureSuccessStatusCode();
 
-            return currentPriceModel.data.First();
-        }
+            string json = await response.Content.ReadAsStringAsync();
+            CurrencyHistoryPricesModel currencyHistoryPricesModel = JsonSerializer.Deserialize<CurrencyHistoryPricesModel>(json);
 
-        private async Task<CurrencyPricesModel> GetValueAsync(HttpRequestMessage requestMessage)
-        {
-            try
-            {
-                var response = await _client.SendAsync(requestMessage);
-                response.EnsureSuccessStatusCode();
-
-                string json = await response.Content.ReadAsStringAsync();
-                _rootobject = JsonSerializer.Deserialize<CurrencyPricesModel>(json);
-
-                return _rootobject;
-            }
-            catch (HttpRequestException ex)
-            {
-                throw;
-            }
+            return currencyHistoryPricesModel;
         }
 
         public void Dispose()

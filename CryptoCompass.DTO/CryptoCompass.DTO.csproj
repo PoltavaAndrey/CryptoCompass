@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CurrencyDetailDTO.cs" />
+    <Compile Include="Models\CurrencyHistoryDTO.cs" />
+    <Compile Include="Models\CurrencyHistoryPricesDTO.cs" />
     <Compile Include="Models\CurrencyPricesDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

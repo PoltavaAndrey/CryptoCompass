@@ -10,6 +10,8 @@ namespace CryptoCompass.Services
         {
             CreateMap<CurrencyDetailModel, CurrencyDetailDTO>();
             CreateMap<CurrencyPricesModel, CurrencyPricesDTO>();
+            CreateMap<CurrencyHistoryPricesModel, CurrencyHistoryPricesDTO>();
+            CreateMap<CurrencyHistoryModel, CurrencyHistoryDTO>();
         }
     }
 }

@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CryptoCompass.Stores;
+using CryptoCompass.ViewModels;
 using System.Windows;
 
 namespace CryptoCompass
 {
     public partial class App : Application
     {
-        public string CurrencyId { get; set; }
-        public string CurrencyName { get; set; }
-        public string CurrencySymbol { get; set; }
-        public string CurrencySupply { get; set; }
-        public string CurrencyMaxSupply { get; set; }
-        public string CurrencyMarketCapUsd { get; set; }
-        public string CurrencyPriceUsd { get; set; }
+        private readonly NavigationStore _navigationStore;
+
+        public App()
+        {
+            _navigationStore = new NavigationStore();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _navigationStore.CurrentViewModel = new ViewModels.CurrencyPopularityViewModel(_navigationStore);
+
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(_navigationStore)
+            };
+            MainWindow.Show();
+
+            base.OnStartup(e);
+        }
     }
 }

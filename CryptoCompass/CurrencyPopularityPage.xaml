@@ -3,14 +3,16 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CryptoCompass"
+      xmlns:local="clr-namespace:CryptoCompass" xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyPopularityViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CurrencyPopularityPage" Loaded="Page_Loaded"
+      Title="CurrencyPopularityPage"
       ShowsNavigationUI="False">
+    
 
     <Grid>
-        <ListBox ItemsSource="{Binding}" Margin="0,54,0,0" MouseDoubleClick="ListBox_MouseDoubleClick" Name="CurrencyPopularityList">
+        <ListBox ItemsSource="{Binding CurrencyDetailDTOs}" Margin="0,54,0,0" Name="CurrencyPopularityList"
+                 SelectedIndex="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -20,7 +22,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
@@ -34,11 +36,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox HorizontalAlignment="Left" Margin="50,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" LostFocus="FindByName_LostFocus"
+        <TextBox HorizontalAlignment="Left" Margin="50,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  Name="FindByNameTextBox"/>
-        <TextBox HorizontalAlignment="Left" Margin="250,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" LostFocus="FindBySymbol_LostFocus"
-                 Name="FindBySymbolTextBox"/>
+        <TextBox HorizontalAlignment="Left" Margin="250,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 Name="FindBySymbolTextBox"/> 
         <Label Content="Find by name" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Background="#FFFDFDFD"/>
         <Label Content="Find by symbol" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Top" Background="#FFFDFDFD"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="699,10,0,0" VerticalAlignment="Top" Width="91"
+        Command="{Binding NavigateToPage2Command}" Height="30"/>
     </Grid>
 </Page>

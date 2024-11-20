@@ -1,7 +1,6 @@
 ﻿using CryptoCompass.DTO.Models;
 using CryptoCompass.API.Contex;
 using CryptoCompass.Services.Interfaces;
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using System.Collections.Generic;

@@ -3,14 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CryptoCompass.Views" xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyDetailsViewModel}"
+             xmlns:local="clr-namespace:CryptoCompass.Views" 
+             xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyDetailsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Grid>
-        <TextBlock>
-            Well work!
-        </TextBlock>
-        <Button Content="Get Back" Margin="100 100 100 100" Command="{Binding GetDetailsCommand}"/>
+
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock Grid.Column="0" Text="Name Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.name}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <TextBlock Grid.Column="0" Text="Symbol Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.symbol}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <TextBlock Grid.Column="0" Text="Supply Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.supply}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <TextBlock Grid.Column="0" Text="Max Supply Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.maxSupply}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <TextBlock Grid.Column="0" Text="Market Cap (USD) Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.marketCapUsd}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="5">
+                <TextBlock Grid.Column="0" Text="Price (USD) Of Crypto" FontSize="24"/>
+                <TextBlock Grid.Column="1" Text="{Binding CurrencyDetailDTO.priceUsd}" FontSize="24"
+                           Margin="300 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="6">
+                <Button Grid.Column="1" Content="Get Back" Margin="100 0 0 0" Command="{Binding GetDetailsCommand}"
+                        Width="300" Height="50"/>
+            </Grid>
+        </Grid>
+      
     </Grid>
 </UserControl>

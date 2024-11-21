@@ -1,5 +1,8 @@
-﻿using CryptoCompass.Stores;
+﻿using CryptoCompass.DTO.Models;
+using CryptoCompass.Stores;
 using CryptoCompass.ViewModels;
+using System;
+using System.Linq;
 using System.Windows;
 
 namespace CryptoCompass
@@ -28,7 +31,24 @@ namespace CryptoCompass
 
         private CurrencyDetailsViewModel CreateCurrencyDetailsViewModel()
         {
-            return new CurrencyDetailsViewModel(new Services.NavigationService(_navigationStore, CreateDetaisViewModel));
+            var popularityViewModel = (CurrencyPopularityViewModel)_navigationStore.CurrentViewModel;
+            CurrencyDetailDTO detailDTO;
+            if (popularityViewModel.SelectedCurrencies != null && popularityViewModel.SelectedCurrencies.Count > 0)
+            {
+                detailDTO = (CurrencyDetailDTO)popularityViewModel.SelectedCurrencies[0];
+            }
+            else if (popularityViewModel.CurrencyDetailDTOs != null)
+            {
+                detailDTO = popularityViewModel.CurrencyDetailDTOs.FirstOrDefault();
+                if (detailDTO == null)
+                    throw new InvalidOperationException("No currencies available in the data source.");
+            }
+            else
+            {
+                throw new InvalidOperationException("No data available.");
+            }
+
+            return new CurrencyDetailsViewModel(detailDTO, new Services.NavigationService(_navigationStore, CreateDetaisViewModel));
         }
 
         private CurrencyPopularityViewModel CreateDetaisViewModel()

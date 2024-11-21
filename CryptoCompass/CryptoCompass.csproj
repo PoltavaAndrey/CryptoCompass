@@ -91,6 +91,7 @@
     <Compile Include="Commands\CurrencyPopularityCommand.cs" />
     <Compile Include="Commands\LoadCurrencyDetailsCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Services\ListViewSelectedItemsService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\CurrencyDetailsViewModel.cs" />

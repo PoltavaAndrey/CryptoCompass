@@ -2,6 +2,7 @@
 using CryptoCompass.DTO.Models;
 using CryptoCompass.Services;
 using CryptoCompass.Stores;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -12,6 +13,17 @@ namespace CryptoCompass.ViewModels
     {
         private ObservableCollection<CurrencyDetailDTO> _currencyDetailDTOs;
         public IEnumerable<CurrencyDetailDTO> CurrencyDetailDTOs => _currencyDetailDTOs;
+
+        private IList _selectedCurrencies = new List<CurrencyDetailDTO>();
+        public IList SelectedCurrencies
+        {
+            get => _selectedCurrencies;
+            set
+            {
+                _selectedCurrencies = value;
+                OnPropertyChanged(nameof(SelectedCurrencies));
+            }
+        }
 
         private readonly NavigationStore _navigationStore;
 

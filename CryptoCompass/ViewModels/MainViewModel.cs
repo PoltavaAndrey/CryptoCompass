@@ -7,7 +7,7 @@ namespace CryptoCompass.ViewModels
         private readonly NavigationStore _navigationStore;
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(NavigationStore navigationStore) // нет ссылки на конструктор
+        public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
 

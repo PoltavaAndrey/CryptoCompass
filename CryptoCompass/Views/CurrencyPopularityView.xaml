@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CryptoCompass.Views" xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyPopularityViewModel}"
+             xmlns:local="clr-namespace:CryptoCompass.Views" 
+             xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" 
+             xmlns:service="clr-namespace:CryptoCompass.Services"
+             d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyPopularityViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -23,7 +26,9 @@
             <Button Grid.Column="1" Content="Get Details" Margin="10 0 0 0" Command="{Binding GetDetailsCommand}"/>
         </Grid>
 
-        <ListView ItemsSource="{Binding CurrencyDetailDTOs}" Grid.Row="1" Margin="0 25 0 0">
+        <ListView ItemsSource="{Binding CurrencyDetailDTOs}" Grid.Row="1" Margin="0 25 0 0"
+                  SelectionMode="Extended"
+                  service:ListViewSelectedItemsService.SelectedItems="{Binding SelectedCurrencies}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

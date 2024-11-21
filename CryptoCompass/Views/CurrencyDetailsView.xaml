@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CryptoCompass.Views"
+             xmlns:local="clr-namespace:CryptoCompass.Views" xmlns:viewmodels="clr-namespace:CryptoCompass.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CurrencyDetailsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -11,5 +11,6 @@
         <TextBlock>
             Well work!
         </TextBlock>
+        <Button Content="Get Back" Margin="100 100 100 100" Command="{Binding GetDetailsCommand}"/>
     </Grid>
 </UserControl>

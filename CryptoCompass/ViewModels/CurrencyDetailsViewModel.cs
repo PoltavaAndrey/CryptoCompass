@@ -1,7 +1,11 @@
-﻿using CryptoCompass.DTO.Models;
+﻿using CryptoCompass.Commands;
+using CryptoCompass.DTO.Models;
+using CryptoCompass.Services;
 using CryptoCompass.Services.Services;
 using CryptoCompass.Stores;
+using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace CryptoCompass.ViewModels
 {
@@ -12,12 +16,11 @@ namespace CryptoCompass.ViewModels
 
         private readonly NavigationStore _navigationStore;
 
-        public CurrencyDetailsViewModel(NavigationStore navigationStore)
-        {
-            _navigationStore = navigationStore;
-            _currencyService = new CurrencyService();
+        public ICommand GetDetailsCommand { get; }
 
-            // TODO: Add command
+        public CurrencyDetailsViewModel(NavigationService navigationService)
+        {
+            GetDetailsCommand = new NavigateCommand(navigationService);
         }
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
     }

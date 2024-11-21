@@ -91,6 +91,7 @@
     <Compile Include="Commands\CurrencyPopularityCommand.cs" />
     <Compile Include="Commands\LoadCurrencyDetailsCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\CurrencyDetailsViewModel.cs" />
     <Compile Include="ViewModels\CurrencyPopularityViewModel.cs" />
@@ -177,5 +178,6 @@
   <ItemGroup>
     <Resource Include="17699.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

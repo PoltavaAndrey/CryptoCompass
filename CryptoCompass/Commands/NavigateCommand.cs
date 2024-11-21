@@ -1,19 +1,19 @@
-﻿using CryptoCompass.Stores;
+﻿using CryptoCompass.Services;
 
 namespace CryptoCompass.Commands
 {
     public class NavigateCommand : CommandBase
     {
-        private readonly NavigationStore _navigationStore;
+        private readonly NavigationService _navigationService;
 
-        public NavigateCommand(NavigationStore navigationStore)
+        public NavigateCommand(NavigationService navigationService)
         {
-            _navigationStore = navigationStore;
+            _navigationService = navigationService;
         }
 
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = new ViewModels.CurrencyDetailsViewModel(_navigationStore);
+            _navigationService.Navigate();
         }
     }
 }

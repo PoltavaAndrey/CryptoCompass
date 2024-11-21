@@ -1,27 +1,48 @@
 ﻿using CryptoCompass.Commands;
 using CryptoCompass.DTO.Models;
-using CryptoCompass.Services.Services;
+using CryptoCompass.Services;
 using CryptoCompass.Stores;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CryptoCompass.ViewModels
 {
     public class CurrencyPopularityViewModel : ViewModelBase
     {
-        private CurrencyService _currencyService;
-        public IEnumerable<CurrencyDetailDTO> СurrencyDetailDTOs;
+        private ObservableCollection<CurrencyDetailDTO> _currencyDetailDTOs;
+        public IEnumerable<CurrencyDetailDTO> CurrencyDetailDTOs => _currencyDetailDTOs;
 
         private readonly NavigationStore _navigationStore;
 
+        public ICommand LoadPopularityCommand { get; }
         public ICommand GetDetailsCommand { get; }
 
-        public CurrencyPopularityViewModel(NavigationStore navigationStore)
+        public CurrencyPopularityViewModel(NavigationService navigationService)
         {
-            _navigationStore = navigationStore;
-            _currencyService = new CurrencyService();
+            _currencyDetailDTOs = new ObservableCollection<CurrencyDetailDTO>();
 
-            GetDetailsCommand = new NavigateCommand(_navigationStore);
+            LoadPopularityCommand = new LoadCurrencyDetailsCommand(this);
+            GetDetailsCommand = new NavigateCommand(navigationService);
+        }
+
+        public static CurrencyPopularityViewModel LoadViewModel(NavigationService navigationService)
+        {
+            CurrencyPopularityViewModel viewModel = new CurrencyPopularityViewModel(navigationService);
+
+            viewModel.LoadPopularityCommand.Execute(null);
+
+            return viewModel;
+        }
+
+        public void UpdatePopularity(IEnumerable<CurrencyDetailDTO> detailDTOs)
+        {
+            _currencyDetailDTOs.Clear();
+
+            foreach (var detailDTO in detailDTOs)
+            {
+                _currencyDetailDTOs.Add(detailDTO);
+            }
         }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;

@@ -1,5 +1,6 @@
 ﻿using CryptoCompass.DTO.Models;
 using CryptoCompass.Services.Services;
+using CryptoCompass.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,18 +11,22 @@ namespace CryptoCompass.Commands
     public class LoadCurrencyDetailsCommand : AsyncCommandBase
     {
         private CurrencyService _currencyService;
-        public IEnumerable<CurrencyDetailDTO> СurrencyDetailDTOs;
+        public IEnumerable<CurrencyDetailDTO> _currencyDetailDTOs;
+        private readonly CurrencyPopularityViewModel _viewModel;
 
-        public LoadCurrencyDetailsCommand()
+        public LoadCurrencyDetailsCommand(CurrencyPopularityViewModel viewModel)
         {
             _currencyService = new CurrencyService();
+            _viewModel = viewModel;
         }
 
         public override async Task ExecuteAsync(object parameter)
         {
             try
             {
-                СurrencyDetailDTOs = await _currencyService.GetCurrencyPricesAsync();
+                _currencyDetailDTOs = await _currencyService.GetCurrencyPricesAsync();
+
+                _viewModel.UpdatePopularity(_currencyDetailDTOs);
             }
             catch (Exception)
             {

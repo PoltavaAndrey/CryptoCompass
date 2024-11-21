@@ -15,7 +15,7 @@ namespace CryptoCompass
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new ViewModels.CurrencyPopularityViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = CreateDetaisViewModel();
 
             MainWindow = new MainWindow()
             {
@@ -24,6 +24,16 @@ namespace CryptoCompass
             MainWindow.Show();
 
             base.OnStartup(e);
+        }
+
+        private CurrencyDetailsViewModel CreateCurrencyDetailsViewModel()
+        {
+            return new CurrencyDetailsViewModel(new Services.NavigationService(_navigationStore, CreateDetaisViewModel));
+        }
+
+        private CurrencyPopularityViewModel CreateDetaisViewModel()
+        {
+            return CurrencyPopularityViewModel.LoadViewModel(new Services.NavigationService(_navigationStore, CreateCurrencyDetailsViewModel));
         }
     }
 }

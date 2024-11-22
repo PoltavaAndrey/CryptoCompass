@@ -1,11 +1,12 @@
-﻿using CryptoCompass.DTO.Models;
+﻿using AutoMapper;
 using CryptoCompass.API.Contex;
+using CryptoCompass.Data.Models;
+using CryptoCompass.DTO.Models;
 using CryptoCompass.Services.Interfaces;
-using System.Threading.Tasks;
-using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryptoCompass.Data.Models;
+using System.Threading.Tasks;
 
 namespace CryptoCompass.Services.Services
 {
@@ -13,30 +14,42 @@ namespace CryptoCompass.Services.Services
     {
         public async Task<IEnumerable<CurrencyHistoryDTO>> GetCurrencyDetailsAsync(string currencyId)
         {
-            CryptoCompassClient cryptoCompassClient = new CryptoCompassClient();
-            CurrencyHistoryPricesModel currencyHistoryPricesModel = await cryptoCompassClient.GetDetailByIdAsync(currencyId);
-
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
-            var mapper = config.CreateMapper();
-            CurrencyHistoryPricesDTO currencyHistoryPricesDTO = mapper.Map<CurrencyHistoryPricesDTO>(currencyHistoryPricesModel);
-            IEnumerable<CurrencyHistoryDTO> currencyHistoryDTOs = currencyHistoryPricesDTO.data.Take(20);
-
-            cryptoCompassClient.Dispose();
-            return currencyHistoryDTOs;
+            return await FetchAndMapAsync(
+                client => client.GetDetailByIdAsync(currencyId),
+                model =>
+                {
+                    var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
+                    var mapper = mapperConfig.CreateMapper();
+                    CurrencyHistoryPricesDTO dto = mapper.Map<CurrencyHistoryPricesDTO>(model);
+                    return dto.data.Take(20);
+                });
         }
 
         public async Task<IEnumerable<CurrencyDetailDTO>> GetCurrencyPricesAsync()
         {
-            CryptoCompassClient cryptoCompassClient = new CryptoCompassClient();
-            var currencyPricesModel = await cryptoCompassClient.GetEnumerationOfDataAsync();
+            return await FetchAndMapAsync(
+                client => client.GetEnumerationOfDataAsync(),
+                model =>
+                {
+                    var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
+                    var mapper = mapperConfig.CreateMapper();
+                    CurrencyPricesDTO dto = mapper.Map<CurrencyPricesDTO>(model);
+                    return dto.data.Take(10);
+                });
+        }
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
-            var mapper = config.CreateMapper();
-            CurrencyPricesDTO currencyPricesDTO = mapper.Map<CurrencyPricesDTO>(currencyPricesModel);
-            IEnumerable<CurrencyDetailDTO> currencyDetailDTO = currencyPricesDTO.data.Take(10);
+        private async Task<TResult> FetchAndMapAsync<TModel, TResult>(Func<CryptoCompassClient, Task<TModel>> fetchDataFunc, Func<TModel, TResult> mapFunc)
+        {
+            using (var cryptoCompassClient = new CryptoCompassClient())
+            {
+                TModel model = await fetchDataFunc(cryptoCompassClient);
 
-            cryptoCompassClient.Dispose();
-            return currencyDetailDTO;
+                var config = new MapperConfiguration(cfg => cfg.AddProfile<CryptoMappingProfile>());
+                var mapper = config.CreateMapper();
+
+                TResult result = mapFunc(model);
+                return result;
+            }
         }
     }
 }

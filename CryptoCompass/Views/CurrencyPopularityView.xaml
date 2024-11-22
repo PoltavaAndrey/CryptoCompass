@@ -71,7 +71,7 @@
                     <GridViewColumn Header="PriceUSD">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="12"/>
+                                <TextBlock Text="{Binding priceUsd}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

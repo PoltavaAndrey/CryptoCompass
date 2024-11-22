@@ -10,16 +10,12 @@ namespace CryptoCompass.API.Contex
     {
         private readonly HttpClient _client;
         private readonly string requestUri = "https://api.coincap.io/v2/assets",
-            requestUriHistory1 = "https://api.coincap.io/v2/assets/",
-            requestUriHistory2 = "/history?interval=d1";
+            requestUri2 = "/history?interval=d1";
         private HttpRequestMessage _requestMessage;
 
         private CurrencyPricesModel currencyPricesModel;
 
-        public CryptoCompassClient()
-        {
-            _client = new HttpClient();
-        }
+        public CryptoCompassClient() => _client = new HttpClient();
 
         public async Task<string> GetDataFromURI(string requestUri)
         {
@@ -42,15 +38,12 @@ namespace CryptoCompass.API.Contex
 
         public async Task<CurrencyHistoryPricesModel> GetDetailByIdAsync(string id)
         {
-            string json = await GetDataFromURI(requestUriHistory1 + id + requestUriHistory2);
+            string json = await GetDataFromURI(requestUri + id + requestUri2);
             CurrencyHistoryPricesModel currencyHistoryPricesModel = JsonSerializer.Deserialize<CurrencyHistoryPricesModel>(json);
 
             return currencyHistoryPricesModel;
         }
 
-        public void Dispose()
-        {
-            _client.Dispose();
-        }
+        public void Dispose() => _client.Dispose();
     }
 }

@@ -21,13 +21,20 @@ namespace CryptoCompass.API.Contex
             _client = new HttpClient();
         }
 
-        public async Task<CurrencyPricesModel> GetEnumerationOfDataAsync()
+        public async Task<string> GetDataFromURI(string requestUri)
         {
             _requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var response = await _client.SendAsync(_requestMessage);
             response.EnsureSuccessStatusCode();
 
             string json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+
+        public async Task<CurrencyPricesModel> GetEnumerationOfDataAsync()
+        {
+            string json = await GetDataFromURI(requestUri);
             currencyPricesModel = JsonSerializer.Deserialize<CurrencyPricesModel>(json);
 
             return currencyPricesModel;
@@ -35,11 +42,7 @@ namespace CryptoCompass.API.Contex
 
         public async Task<CurrencyHistoryPricesModel> GetDetailByIdAsync(string id)
         {
-            _requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUriHistory1 + id + requestUriHistory2);
-            var response = await _client.SendAsync(_requestMessage);
-            response.EnsureSuccessStatusCode();
-
-            string json = await response.Content.ReadAsStringAsync();
+            string json = await GetDataFromURI(requestUriHistory1 + id + requestUriHistory2);
             CurrencyHistoryPricesModel currencyHistoryPricesModel = JsonSerializer.Deserialize<CurrencyHistoryPricesModel>(json);
 
             return currencyHistoryPricesModel;
